@@ -20,11 +20,11 @@ it('TC01 -[Create]Show the modal of AWP Year Created Successfully', () => {
 
   
     cy.get('#awpyear').click()
-    cy.get('.sc-hhOBVt > .sc-gswNZR > #create > span').click()
+    cy.get('#create').click()
     cy.wait(3000)
 
     
-    cy.get('#description').type('Decription Create')
+    cy.get('#description').type('Description Create')
     cy.get('.ant-picker-input').type(2021)
     
   
@@ -55,18 +55,18 @@ it('TC01 -[Create]Show the modal of AWP Year Created Successfully', () => {
 
   
     cy.get('#awpyear').click()
-    cy.get('.sc-hhOBVt > .sc-gswNZR > #create > span').click()
+    cy.get('#create').click()
     cy.wait(3000)
 
     
-    cy.get('#description').type('Decription Create')
+    cy.get('#description').type('Description Create')
     cy.get('.ant-picker-input').type(2021)
     
   
     
    
     cy.get('.ant-row-end > .cTWSvd > #create > span').click()
-
+    cy.wait(3000)
     cy.get('.ant-notification-notice-description').invoke('text').then(someText =>{
 
       expect(someText).equal('The year has already been taken.')
@@ -79,6 +79,34 @@ it('TC01 -[Create]Show the modal of AWP Year Created Successfully', () => {
 
 
     
+
+  it('TC03 -[Update] Show the modal of The name has already been taken', () => {
+   
+    cy.get('#login-form_email').type('superadmin@aboitiz.com')
+    cy.get('#login-form_password').type('secret')
+    cy.get('#create').click()
+    cy.get(':nth-child(2) > .ant-menu-submenu-title > .ant-menu-title-content').click()
+    cy.wait(5000)
+
+  
+    cy.get('#awpyear').click()
+   
+    cy.get('#edit').click()
+    cy.wait(3000)
+    cy.get('#description').clear()
+    cy.wait(1000)
+    cy.get('#description').type("Decription")
+    cy.wait(1000)
+    
+    cy.get('.ant-picker-input').clear().type('2023').type('{enter}')
+    cy.get('.ant-row-end > .ccGznZ > #edit > span').click()
+    cy.wait(3000)
+
+    cy.get('.ant-notification-notice-description').invoke('text').then(someText =>{
+
+      expect(someText).equal('The year has already been taken.')
+    })
+  })
 
 
   })
